@@ -1,12 +1,15 @@
 :root {
-  --bg: #020402;
-  --bg-soft: #07110b;
-  --panel: rgba(5, 10, 7, 0.92);
-  --border: rgba(125, 255, 174, 0.2);
-  --text: #f2fff5;
-  --muted: #94b89f;
-  --accent: #7dffae;
-  --error: #ff8d8d;
+  --bg: #03060b;
+  --bg-soft: #08111a;
+  --panel: rgba(6, 13, 20, 0.94);
+  --panel-soft: rgba(7, 15, 22, 0.82);
+  --line: rgba(127, 255, 212, 0.18);
+  --line-strong: rgba(127, 255, 212, 0.3);
+  --text: #f1fff8;
+  --muted: #9cb7ab;
+  --accent: #7fffd4;
+  --accent-soft: #8de8ff;
+  --error: #ff9d9d;
 }
 
 * {
@@ -15,20 +18,41 @@
 
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top, rgba(20, 48, 30, 0.45), transparent 35%),
-    linear-gradient(180deg, var(--bg-soft), var(--bg));
+    radial-gradient(circle at top, rgba(68, 157, 142, 0.2), transparent 28%),
+    radial-gradient(circle at 80% 20%, rgba(71, 101, 182, 0.16), transparent 26%),
+    linear-gradient(180deg, #07111a 0%, var(--bg) 52%, #010304 100%);
   color: var(--text);
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Consolas", "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 100% 26px, 26px 100%;
+  opacity: 0.18;
+  pointer-events: none;
 }
 
 a {
   color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
 .sourceHint {
@@ -44,103 +68,402 @@ a {
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
-  padding: 24px;
+  padding: clamp(18px, 4vw, 42px);
   overflow: hidden;
 }
 
-.terminalScreen::before {
+.terminalScreen::before,
+.terminalScreen::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(125, 255, 174, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(125, 255, 174, 0.05) 1px, transparent 1px);
-  background-size: 100% 32px, 32px 100%;
-  opacity: 0.16;
   pointer-events: none;
+}
+
+.terminalScreen::before {
+  background:
+    radial-gradient(circle at 18% 18%, rgba(127, 255, 212, 0.12), transparent 28%),
+    radial-gradient(circle at 82% 20%, rgba(141, 232, 255, 0.08), transparent 24%);
+}
+
+.terminalScreen::after {
+  background-image:
+    linear-gradient(rgba(127, 255, 212, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127, 255, 212, 0.04) 1px, transparent 1px);
+  background-size: 100% 34px, 34px 100%;
+  mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.82) 8%, rgba(0, 0, 0, 0.82) 92%, transparent);
+  opacity: 0.18;
+}
+
+.terminalScreen--vault::before {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(127, 255, 212, 0.13), transparent 26%),
+    radial-gradient(circle at 88% 16%, rgba(92, 140, 255, 0.12), transparent 22%);
+}
+
+.terminalScreen--approved::before {
+  background:
+    radial-gradient(circle at 24% 20%, rgba(127, 255, 212, 0.15), transparent 28%),
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.08), transparent 20%);
 }
 
 .terminalPanel {
   position: relative;
   z-index: 1;
-  width: min(100%, 640px);
-  padding: 32px 28px;
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(9, 19, 13, 0.96), var(--panel));
+  width: min(100%, 1080px);
+  padding: clamp(22px, 4vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(10, 20, 29, 0.96), var(--panel));
   box-shadow:
-    0 0 0 1px rgba(125, 255, 174, 0.04),
-    0 20px 80px rgba(0, 0, 0, 0.45),
-    0 0 60px rgba(125, 255, 174, 0.08);
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 28px 80px rgba(0, 0, 0, 0.44),
+    0 0 72px rgba(127, 255, 212, 0.08);
+}
+
+.terminalPanel::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 27px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 24%, transparent 76%, rgba(127, 255, 212, 0.05));
+  pointer-events: none;
 }
 
 .terminalPanel::after {
   content: "";
   position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  inset: 14px;
+  border: 1px solid rgba(127, 255, 212, 0.08);
+  border-radius: 20px;
   pointer-events: none;
 }
 
+.terminalStatusStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.terminalStatusPill {
+  min-width: 170px;
+  padding: 12px 14px;
+  border: 1px solid rgba(127, 255, 212, 0.14);
+  border-radius: 16px;
+  background: rgba(4, 10, 15, 0.64);
+}
+
+.terminalStatusLabel {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.terminalStatusValue {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+.terminalHeader {
+  display: grid;
+  gap: 14px;
+}
+
 .terminalEyebrow {
-  margin: 0 0 16px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.terminalTitle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  line-height: 1;
+}
+
+.terminalCursor {
+  width: 0.72ch;
+  height: 1em;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
+  box-shadow: 0 0 14px rgba(127, 255, 212, 0.5);
+  animation: blink 1s steps(1) infinite;
+}
+
+.terminalSubtitle {
+  margin: 0;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  line-height: 1.72;
+}
+
+.terminalSeparator {
+  height: 1px;
+  margin: 24px 0;
+  background: linear-gradient(90deg, transparent, rgba(127, 255, 212, 0.28), transparent);
+}
+
+.terminalContent {
+  display: grid;
+  gap: 20px;
+}
+
+.terminalLead {
+  margin: 0;
+  color: var(--accent);
+  font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+  line-height: 1.72;
+}
+
+.terminalMuted {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.72;
+}
+
+.terminalFooter {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.ritualGrid {
+  display: grid;
+  gap: 18px;
+}
+
+.ritualGrid--home,
+.ritualGrid--gate,
+.ritualGrid--approved {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: start;
+}
+
+.ritualStack {
+  display: grid;
+  gap: 18px;
+}
+
+.ritualCard {
+  position: relative;
+  padding: 22px;
+  border: 1px solid rgba(127, 255, 212, 0.14);
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--panel-soft), rgba(3, 7, 11, 0.76));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.ritualCard::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(120deg, rgba(127, 255, 212, 0.06), transparent 35%, transparent 65%, rgba(141, 232, 255, 0.05));
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.ritualCard--spotlight {
+  padding: 28px;
+}
+
+.ritualCard--fragment {
+  border-color: rgba(127, 255, 212, 0.22);
+}
+
+.ritualCardTitle {
+  margin: 0 0 14px;
   color: var(--muted);
   font-size: 0.78rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-.terminalTitle {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0 0 20px;
-  font-size: clamp(2rem, 6vw, 3.75rem);
-  line-height: 1.02;
+.ritualCardHeading {
+  margin: 0 0 10px;
+  font-size: clamp(1.2rem, 3vw, 1.65rem);
+  color: var(--text);
 }
 
-.terminalCursor {
-  width: 0.72ch;
-  height: 1.05em;
-  background: var(--accent);
-  box-shadow: 0 0 12px rgba(125, 255, 174, 0.5);
-  animation: blink 1s steps(1) infinite;
-}
-
-.terminalContent {
-  display: grid;
-  gap: 16px;
-}
-
-.terminalLead {
-  margin: 0;
-  color: var(--accent);
-  font-size: clamp(1rem, 2.8vw, 1.2rem);
-}
-
-.terminalMuted {
+.ritualCardText {
   margin: 0;
   color: var(--muted);
-  line-height: 1.65;
+  line-height: 1.72;
+}
+
+.ritualActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.ritualLogList {
+  display: grid;
+  gap: 12px;
+}
+
+.ritualLogItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(127, 255, 212, 0.08);
+}
+
+.ritualLogItem:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.ritualLogIndex {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(127, 255, 212, 0.16);
+  border-radius: 10px;
+  background: rgba(127, 255, 212, 0.06);
+  color: var(--accent);
+  font-size: 0.82rem;
+}
+
+.ritualTriad {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ritualTriadItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.ritualTriadMarker {
+  width: 10px;
+  height: 10px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-soft));
+  box-shadow: 0 0 12px rgba(127, 255, 212, 0.45);
+}
+
+.ritualTriadText {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.fragmentPanel {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid rgba(127, 255, 212, 0.16);
+  border-radius: 18px;
+  background: rgba(127, 255, 212, 0.06);
+}
+
+.fragmentLabel {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.fragmentValue {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: 0.14em;
+}
+
+.consoleCallout {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  padding: 10px 14px;
+  border: 1px dashed rgba(127, 255, 212, 0.24);
+  border-radius: 999px;
+  background: rgba(127, 255, 212, 0.05);
+  color: var(--accent);
+}
+
+.consoleCallout::before {
+  content: ">";
+  color: var(--accent-soft);
+}
+
+.statusNote {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.statusNoteRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(127, 255, 212, 0.08);
+}
+
+.statusNoteRow:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.statusNoteKey {
+  color: var(--muted);
+}
+
+.statusNoteValue {
+  color: var(--text);
+  text-align: right;
 }
 
 .terminalForm {
   display: grid;
   gap: 14px;
+  margin-top: 20px;
 }
 
 .terminalInput {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid rgba(125, 255, 174, 0.28);
-  background: rgba(0, 0, 0, 0.38);
+  padding: 16px 18px;
+  border: 1px solid rgba(127, 255, 212, 0.26);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.32);
   color: var(--text);
-  font: inherit;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.terminalInput::placeholder {
+  color: rgba(156, 183, 171, 0.72);
 }
 
 .terminalInput:focus {
-  outline: 1px solid var(--accent);
-  border-color: var(--accent);
-  box-shadow: 0 0 18px rgba(125, 255, 174, 0.14);
+  outline: none;
+  border-color: var(--line-strong);
+  background: rgba(0, 0, 0, 0.42);
+  box-shadow: 0 0 0 1px rgba(127, 255, 212, 0.2), 0 0 20px rgba(127, 255, 212, 0.14);
 }
 
 .terminalButton {
@@ -148,18 +471,20 @@ a {
   justify-content: center;
   align-items: center;
   width: fit-content;
-  min-width: 200px;
-  padding: 13px 18px;
-  border: 1px solid var(--accent);
-  background: transparent;
+  min-width: 210px;
+  padding: 14px 20px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: rgba(127, 255, 212, 0.04);
   color: var(--text);
-  font: inherit;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
   transition:
+    transform 0.2s ease,
     background-color 0.2s ease,
+    border-color 0.2s ease,
     color 0.2s ease,
     box-shadow 0.2s ease;
 }
@@ -167,14 +492,62 @@ a {
 .terminalButton:hover,
 .terminalButton:focus-visible {
   outline: none;
-  color: #031208;
+  transform: translateY(-1px);
+  border-color: var(--accent);
   background: var(--accent);
-  box-shadow: 0 0 24px rgba(125, 255, 174, 0.22);
+  color: #04120d;
+  box-shadow: 0 0 24px rgba(127, 255, 212, 0.24);
+}
+
+.terminalButton:disabled {
+  cursor: wait;
+  opacity: 0.7;
+  transform: none;
+}
+
+.terminalButton--full {
+  width: 100%;
+}
+
+.terminalInlineMessage {
+  min-height: 1.5em;
 }
 
 .terminalError {
   margin: 0;
   color: var(--error);
+}
+
+.terminalSuccess {
+  margin: 0;
+  color: var(--accent);
+}
+
+.ritualRewardGrid {
+  display: grid;
+  gap: 12px;
+}
+
+.rewardItem {
+  padding: 16px 18px;
+  border: 1px solid rgba(127, 255, 212, 0.14);
+  border-radius: 16px;
+  background: rgba(127, 255, 212, 0.05);
+}
+
+.rewardLabel {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rewardValue {
+  display: block;
+  color: var(--text);
+  font-size: 1.05rem;
 }
 
 .srOnly {
@@ -201,16 +574,57 @@ a {
   }
 }
 
+@media (max-width: 900px) {
+  .ritualGrid--home,
+  .ritualGrid--gate,
+  .ritualGrid--approved {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .terminalScreen {
-    padding: 16px;
+    padding: 14px;
   }
 
   .terminalPanel {
-    padding: 24px 20px;
+    padding: 20px;
+    border-radius: 24px;
   }
 
-  .terminalButton {
+  .terminalPanel::before {
+    border-radius: 23px;
+  }
+
+  .terminalPanel::after {
+    inset: 10px;
+    border-radius: 16px;
+  }
+
+  .terminalTitle {
+    font-size: clamp(1.9rem, 10vw, 3rem);
+  }
+
+  .terminalStatusPill,
+  .terminalButton,
+  .consoleCallout {
     width: 100%;
+  }
+
+  .ritualActions {
+    flex-direction: column;
+  }
+
+  .ritualCard,
+  .ritualCard--spotlight {
+    padding: 18px;
+  }
+
+  .statusNoteRow {
+    flex-direction: column;
+  }
+
+  .statusNoteValue {
+    text-align: left;
   }
 }
