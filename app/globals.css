@@ -282,6 +282,11 @@ select {
   border-color: rgba(127, 255, 212, 0.22);
 }
 
+.ritualCard--certificate {
+  padding: 0;
+  overflow: hidden;
+}
+
 .ritualCardTitle {
   margin: 0 0 14px;
   color: var(--muted);
@@ -307,6 +312,46 @@ select {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 22px;
+}
+
+.certificateLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 0.92fr);
+  gap: 0;
+}
+
+.certificatePanel,
+.certificatePreview {
+  padding: 24px;
+}
+
+.certificatePanel {
+  border-right: 1px solid rgba(127, 255, 212, 0.1);
+}
+
+.certificateForm {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.certificatePreview {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  background: rgba(3, 9, 13, 0.58);
+}
+
+.certificatePreviewArt {
+  margin: 0;
+  padding: 16px;
+  border: 1px solid rgba(127, 255, 212, 0.12);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.34);
+  color: var(--accent);
+  font-size: 0.68rem;
+  line-height: 1.05;
+  overflow-x: auto;
 }
 
 .ritualLogList {
@@ -579,6 +624,15 @@ select {
   .ritualGrid--gate,
   .ritualGrid--approved {
     grid-template-columns: 1fr;
+  }
+
+  .certificateLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .certificatePanel {
+    border-right: 0;
+    border-bottom: 1px solid rgba(127, 255, 212, 0.1);
   }
 }
 
